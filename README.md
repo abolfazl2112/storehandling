@@ -1,2 +1,2 @@
-# storehandling
+# store handling
 سورس انبار گردانی ساده
