@@ -1,0 +1,140 @@
+﻿@model IEnumerable<anbardari.tbl_personel>
+
+@{
+    ViewBag.Location = "personel";
+    ViewBag.Title = "پرسنل";
+    Layout = "~/Views/Shared/_LayoutArzyabi.cshtml";
+
+    Database db = new Database();
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a href="#" class="btn btn-primary"
+                       onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/Create/')"
+                       data-toggle="modal" data-target="#modal-delete-page">
+                        <i data-toggle="tooltip" data-placement="top" data-original-title="جدید" class="fa fa-plus"></i> @ViewBag.Title جدید
+                    </a>
+                </h5>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pic)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.family)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.father)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.bakhshId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.sematId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.active)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img class="img-circle img-md" src="~/images/profiles/@(item.pic==null||item.pic==""?"noPic.png":item.pic)" alt="@item.family" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.family)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.father)
+                                </td>
+                                <td>
+                                    @try
+                                    {
+                                        <span>
+                                            @db.tbl_anbar.Where(x => x.Id == item.bakhshId).FirstOrDefault().subject
+                                        </span>
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        <span>همه بخش ها</span>
+                                    }
+                                </td>
+                                <td>
+                                    @try
+                                    {
+                                        <span>
+                                            @db.tbl_semat.Where(x => x.Id == item.sematId).FirstOrDefault().subject
+                                        </span>
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        <span>نامشخص</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.active)
+                                    {
+                                        <i class="fa fa-check-square-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-minus-circle"></i>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/edit/@item.id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="ویرایش" class="fa fa-edit"></i></a> |
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/delete/@item.id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="حذف" class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pic)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.family)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.father)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.meli)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.sematId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.active)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

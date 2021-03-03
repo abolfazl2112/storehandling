@@ -1,0 +1,91 @@
+﻿@model IEnumerable<anbardari.tbl_productAnbar>
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "محدودیت تعداد کالا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Location = "productStore";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a href="#" class="btn btn-primary"
+                       onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/Create/')"
+                       data-toggle="modal" data-target="#modal-delete-page">
+                        <i data-toggle="tooltip" data-placement="top" data-original-title="جدید" class="fa fa-plus"></i> @ViewBag.Title جدید
+                    </a>
+                </h5>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:45%">
+                                @Html.DisplayNameFor(model => model.productId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbarId)
+                            </th>
+                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.maxOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.days)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @(item.productId.ToString() == "" ? "" : db.tbl_product.Where(x => x.Id == item.productId).FirstOrDefault().name)
+                                </td>
+                                <td>
+                                    @(item.anbarId.ToString() == "" ? "" : db.tbl_anbar.Where(x => x.Id == item.anbarId).FirstOrDefault().subject)
+                                </td>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.maxOrder)
+                                </td>
+                                <td>
+                                    @(item.days.ToString()==""?"":db.tbl_typeDays.Where(x=>x.Id==item.days).FirstOrDefault().subject)
+                                </td>
+                                <td>
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/edit/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="ویرایش" class="fa fa-edit"></i></a> |
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/delete/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="حذف" class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.productId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbarId)
+                            </th>
+                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.maxOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.days)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

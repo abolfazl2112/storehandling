@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="1">
+      <DataSource1 Ref="2" type="DataTableSource" isKey="true">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="4">
+          <value>question,System.String</value>
+          <value>name,System.String</value>
+          <value>rate,System.Int32</value>
+          <value>row,System.Int32</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>DataSource1</Name>
+        <NameInSource>DataSource1</NameInSource>
+      </DataSource1>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="3">
+      <value>,organ,organ,,System.String,مرکز_x0020_آموزشی_x060C__x0020_پژوهشی_x0020_و_x0020_درمانی_x0020_علامه_x0020_بهلول_x0020_گنابادی,False,False,False,False</value>
+      <value>,year,year,,System.String,,False,False,False,False</value>
+      <value>,semat,semat,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="3" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <PageHeaderBand1 Ref="4" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.15,11.29,0.35</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text1 Ref="5" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0,11.3,0.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,12,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="3" />
+              <Parent isRef="4" />
+              <Text>چک لیست پایش پرسنل {semat} {organ} در سال {year}</Text>
+              <TextBrush>Red</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+        </PageHeaderBand1>
+        <DataBand1 Ref="6" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.8,11.29,5.45</ClientRectangle>
+          <Components isList="true" count="1">
+            <CrossTab1 Ref="7" type="Stimulsoft.Report.CrossTab.StiCrossTab" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,-0.05,11.3,5.4</ClientRectangle>
+              <Components isList="true" count="8">
+                <CrossTab1_RowTotal1 Ref="8" type="CrossRowTotal" isKey="true">
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>[255:255:255]</Brush>
+                  <ClientRectangle>0,0.94,0.9,0.3</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Titr,10</Font>
+                  <Guid>54315f84afd74688a94977cb97eed39b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_RowTotal1</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>مجموع امتیازات</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                </CrossTab1_RowTotal1>
+                <CrossTab1_ColTotal1 Ref="9" type="CrossColumnTotal" isKey="true">
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>[255:255:255]</Brush>
+                  <ClientRectangle>1.07,0.17,0,0.15</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Arial,8</Font>
+                  <Guid>a933470f5320418cbcc8cfa1669ce667</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_ColTotal1</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>Total</Text>
+                  <TextBrush>Black</TextBrush>
+                </CrossTab1_ColTotal1>
+                <CrossTab1_LeftTitle Ref="10" type="CrossTitle" isKey="true">
+                  <Border>None;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>White</Brush>
+                  <ClientRectangle>0,0,0.9,0.35</ClientRectangle>
+                  <Font>B Titr,0.1</Font>
+                  <Guid>440c276e9e824b92a1aca2d4c6a4c940</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_LeftTitle</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>ارزیابی پرسنل</Text>
+                  <TextBrush>White</TextBrush>
+                  <Type>Expression</Type>
+                  <TypeOfComponent>LeftTitle</TypeOfComponent>
+                </CrossTab1_LeftTitle>
+                <CrossTab1_Row1_Title Ref="11" type="CrossTitle" isKey="true">
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>White</Brush>
+                  <ClientRectangle>0,0.37,0.9,0.35</ClientRectangle>
+                  <Font>B Nazanin,10,Bold</Font>
+                  <Guid>bddc366a345f41869a672ea3829e79da</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_Row1_Title</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>عنوان سوال</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Type>Expression</Type>
+                  <TypeOfComponent>Row:CrossTab1_Row1</TypeOfComponent>
+                </CrossTab1_Row1_Title>
+                <CrossTab1_RightTitle Ref="12" type="CrossTitle" isKey="true">
+                  <Border>None;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>White</Brush>
+                  <ClientRectangle>0.92,0,0.35,0.35</ClientRectangle>
+                  <Font>B Titr,0.1</Font>
+                  <Guid>bd00bf6bc9d84888bc90d52ab79ed34b</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_RightTitle</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>اسامی پرسنل</Text>
+                  <TextBrush>White</TextBrush>
+                  <Type>Expression</Type>
+                  <TypeOfComponent>RightTitle</TypeOfComponent>
+                </CrossTab1_RightTitle>
+                <CrossTab1_Row1 Ref="13" type="CrossRow" isKey="true">
+                  <Alias>question</Alias>
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>White</Brush>
+                  <ClientRectangle>0,0.74,0.9,0.2</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <DisplayValue>{DataSource1.question}</DisplayValue>
+                  <Font>B Nazanin,9</Font>
+                  <Guid>93aee4ea2ba34d84b2026bbdd8ede472</Guid>
+                  <HorAlignment>Right</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_Row1</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>question</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TotalGuid>54315f84afd74688a94977cb97eed39b</TotalGuid>
+                  <Value>{DataSource1.question}</Value>
+                </CrossTab1_Row1>
+                <CrossTab1_Column1 Ref="14" type="CrossColumn" isKey="true">
+                  <Alias>name</Alias>
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>White</Brush>
+                  <ClientRectangle>0.92,0.37,0.35,0.35</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <DisplayValue>{DataSource1.name}</DisplayValue>
+                  <Font>B Nazanin,9,Bold</Font>
+                  <Guid>fb2a583e337246768376c608eeb3d68d</Guid>
+                  <Margins>0,0,0,0</Margins>
+                  <MaxSize>0,2</MaxSize>
+                  <Name>CrossTab1_Column1</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <ShowTotal>False</ShowTotal>
+                  <Text>name</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,,Angle=90</TextOptions>
+                  <TotalGuid>a933470f5320418cbcc8cfa1669ce667</TotalGuid>
+                  <Value>{DataSource1.name}</Value>
+                </CrossTab1_Column1>
+                <CrossTab1_Sum1 Ref="15" type="CrossSummary" isKey="true">
+                  <Alias>rate</Alias>
+                  <Border>All;[155:155:155];1;Solid;False;4;Black</Border>
+                  <Brush>[255:255:255]</Brush>
+                  <ClientRectangle>0.92,0.74,0.35,0.2</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>B Nazanin,8</Font>
+                  <Guid>964031e979464a5fb1b075175be6f279</Guid>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>CrossTab1_Sum1</Name>
+                  <Page isRef="3" />
+                  <Parent isRef="7" />
+                  <Restrictions>AllowMove, AllowResize, AllowSelect, AllowChange</Restrictions>
+                  <Text>0</Text>
+                  <TextBrush>Black</TextBrush>
+                  <Value>{DataSource1.rate}</Value>
+                </CrossTab1_Sum1>
+              </Components>
+              <Conditions isList="true" count="0" />
+              <DataRelationName />
+              <DataSourceName>DataSource1</DataSourceName>
+              <EmptyValue />
+              <Filters isList="true" count="0" />
+              <Guid>5b2f6a5fc8744edebaf026f75e717786</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Name>CrossTab1</Name>
+              <Page isRef="3" />
+              <Parent isRef="6" />
+              <RightToLeft>True</RightToLeft>
+              <Sort isList="true" count="0" />
+            </CrossTab1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>fddfd7aa517045a29fca978a6fde519f</Guid>
+      <Margins>0.2,0.2,0.2,0.2</Margins>
+      <Name>Page1</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>8.27</PageHeight>
+      <PageWidth>11.69</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="16" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="17" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>10/24/2018 8:52:13 AM</ReportChanged>
+  <ReportCreated>9/23/2018 9:03:35 AM</ReportCreated>
+  <ReportFile>F:\projects\asp.net\anbardari\anbardari\anbardari\reports\arzyabi.mrt</ReportFile>
+  <ReportGuid>2a20bff13cda44b399f2486abdaa446f</ReportGuid>
+  <ReportImage isNull="true" />
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2017.2.2.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="2">
+    <Style1 Ref="18" type="Stimulsoft.Report.StiCrossTabStyle" isKey="true">
+      <Color>LightGray</Color>
+      <Conditions isList="true" count="1">
+        <Item16 Ref="19" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <Placement>DataOddStyle</Placement>
+          <Type>Placement, Location</Type>
+        </Item16>
+      </Conditions>
+      <Name>Style1</Name>
+    </Style1>
+    <Style2 Ref="20" type="Stimulsoft.Report.StiCrossTabStyle" isKey="true">
+      <Color>White</Color>
+      <Conditions isList="true" count="1">
+        <Item18 Ref="21" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <Placement>DataEvenStyle</Placement>
+        </Item18>
+      </Conditions>
+      <Name>Style2</Name>
+    </Style2>
+  </Styles>
+</StiSerializer>

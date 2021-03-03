@@ -1,0 +1,160 @@
+﻿@model anbardari.tbl_personel
+
+@{
+    ViewBag.Title = "پرسنل جدید";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+
+    var db = new Database();
+    var personTypeList = db.tbl_semat.Where(x => x.active == true).ToList();
+    var bakhshList = db.tbl_anbar.Where(x => x.active == true).ToList();
+
+    string valuePersianDate = "";
+    if (Model == null)
+    {
+        valuePersianDate = anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd");
+    }
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.bakhshId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control select2" style="width:100%" id="@Html.NameFor(model => model.bakhshId)" name="@Html.NameFor(model => model.sematId)" >
+                    @{
+                        var flage = 0;
+                    }
+                    @foreach (var item in bakhshList)
+                    {
+                        flage++;
+                        <option @(flage > 1 ? "" : "selected") value="@item.Id">@item.subject</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.bakhshId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.sematId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control select2" style="width:100%" id="@Html.NameFor(model => model.sematId)" name="@Html.NameFor(model => model.sematId)">
+                    @{
+                        flage = 0;
+                    }
+                    @foreach (var item in personTypeList)
+                    {
+                        flage++;
+                        <option @(flage > 1 ? "" : "selected") value="@item.Id">@item.subject</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.sematId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.family, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.family, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.family, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.father, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.father, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.father, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.meli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.meli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.meli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bdate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input name="@Html.NameFor(model => model.bdate)"
+                       id="@Html.NameFor(model => model.bdate)"
+                       class="form-control"
+                       value="@(Model==null?valuePersianDate:(Model.bdate.ToString()==""?valuePersianDate:Model.bdate.ToString()))"
+                       data-MdDateTimePicker="true"
+                       data-targetselector="#startDate"
+                       data-groupid="group1"
+                       data-fromdate="true"
+                       data-enabletimepicker="false"
+                       data-placement="bottom"
+                       placeholder="yyyy/mm/dd" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                @try
+                {
+                    <img class="img-circle img-lg" src="~/images/profiles/@Model.pic" alt="" />
+                }
+                catch (Exception ex)
+                {
+                    <img class="img-circle img-lg" src="~/images/profiles/noPic.png" alt="" />
+                }
+            </div>
+            <div class="col-md-6">
+                @try
+                {
+                    <img class="img-circle img-lg" src="~/images/profiles/@Model.emza" alt="" />
+                }
+                catch (Exception ex)
+                {
+                    <img class="img-circle img-lg" src="~/images/profiles/noPic.png" alt="" />
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.pic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="file" name="@Html.NameFor(model => model.pic)" id="@Html.NameFor(model => model.pic)" />
+            </div>
+            @Html.LabelFor(model => model.emza, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="file" name="@Html.NameFor(model => model.emza)" id="@Html.NameFor(model => model.emza)"/>
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.active)
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

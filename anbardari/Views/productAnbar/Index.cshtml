@@ -1,0 +1,70 @@
+﻿@model IEnumerable<anbardari.tbl_productAnbar>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("درخواست جدید", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.productId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.anbarId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.minOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.maxOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ghafase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.location)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.productId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anbarId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.minOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.maxOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ghafase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.location)
+        </td>
+        <td>
+            @Html.ActionLink("ویرایش", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("جزییات", "Details", new { id=item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

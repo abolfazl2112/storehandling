@@ -1,0 +1,150 @@
+﻿@model IEnumerable<anbardari.tbl_users>
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "کاربر";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Location = "users";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a href="#" class="btn btn-primary"
+                       onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/Create/')"
+                       data-toggle="modal" data-target="#modal-delete-page">
+                        <i data-toggle="tooltip" data-placement="top" data-original-title="جدید" class="fa fa-plus"></i> @ViewBag.Title جدید
+                    </a>
+                </h5>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.password)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.family)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbarId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.sematId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.admin)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbardar)
+                            </th>
+                            <th>@Html.DisplayNameFor(model => model.active)</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.password)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.family)
+                                </td>
+                                <td>
+                                    @(item.anbarId.ToString()==""?"-":db.tbl_anbar.Where(x => x.Id == item.anbarId).First().subject)
+                                </td>
+                                <td>
+                                    @db.tbl_semat.Where(x => x.Id == item.sematId).First().subject
+                                </td>
+                                <td>
+                                    @if (item.admin)
+                                    {
+                                        <i class="fa fa-check-square-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-remove"></i>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.anbardar)
+                                    {
+                                        <i class="fa fa-check-square-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-remove"></i>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.active)
+                                    {
+                                        <i class="fa fa-check-square-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-remove"></i>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/edit/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="ویرایش" class="fa fa-edit"></i></a> |
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/details/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="جزییات" class="fa fa-eye"></i></a> |
+                                    <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/delete/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="حذف" class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.password)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.family)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbarId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.sematId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.admin)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbardar)
+                            </th>
+                            <th>@Html.DisplayNameFor(model => model.active)</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

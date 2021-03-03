@@ -1,0 +1,100 @@
+﻿@model anbardari.tbl_checklist
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutArzyabi.cshtml";
+
+    int currentYear = 0;
+    int currentMonth = 0;
+    int currentBakhshId = 0;
+    int currentSematId = 0;
+
+    Database db = new Database();
+    tbl_users currentUser;
+    List<tbl_semat> personTypeList;
+    List<tbl_anbar> bakhshList;
+    List<tbl_question> questions;
+    List<tbl_personel> personList;
+    try
+    {
+        currentUser = (tbl_users)ViewBag.currentUser;
+        currentYear = (int)ViewBag.currentYear;
+        currentMonth = (int)ViewBag.currentMonth;
+        currentBakhshId = (int)ViewBag.currentBakhshId;
+        currentSematId = (int)ViewBag.currentSematId;
+
+        personTypeList = (List<tbl_semat>)ViewBag.personTypeList;
+        bakhshList = (List<tbl_anbar>)ViewBag.bakhshList;
+        questions = (List<tbl_question>)ViewBag.questions;
+        personList = (List<tbl_personel>)ViewBag.personList;
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>tbl_checklist</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.personId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.personId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.personId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.questionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.questionId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.questionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.rate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.rate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.month, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.month, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.month, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

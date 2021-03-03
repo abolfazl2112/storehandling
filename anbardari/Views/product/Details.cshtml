@@ -1,0 +1,101 @@
+﻿@model anbardari.tbl_product
+
+@{
+    ViewBag.Title = "کالا";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<h4>@ViewBag.Title</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codeKala)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codeKala)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperetureMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperetureMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperetureMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperetureMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maxOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maxOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+    </dl>
+</div>

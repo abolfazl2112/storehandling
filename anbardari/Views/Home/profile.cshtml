@@ -1,0 +1,107 @@
+﻿@model anbardari.tbl_users
+
+@{
+    ViewBag.Title = "پروفایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var db = new Database();
+}
+<div class="row">
+    <div class="col-md-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="box-title pull-left">
+                            </div>
+                            <div class="box-title pull-right">
+                                <label></label>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.Id)
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Model.username
+                                            </div>
+                                            @Html.LabelFor(model => model.anbarId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @db.tbl_anbar.Where(x => x.Id == Model.anbarId).FirstOrDefault().subject
+                                            </div>
+                                            @Html.LabelFor(model => model.sematId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @db.tbl_semat.Where(x => x.Id == Model.sematId).FirstOrDefault().subject
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                <input type="password" name="@Html.NameFor(model => model.password)" value="@Model.password" class="form-control" />
+                                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.family, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(model => model.family, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.family, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.father, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(model => model.father, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.father, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.codemeli, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(model => model.codemeli, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.codemeli, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.pic, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                <img style="width:100%" src="~/Images/users/@((Model.pic==null||Model.pic=="")?"":Model.pic)" />
+                                                <input type="file" id="@Html.NameFor(model => model.pic)" name="@Html.NameFor(model => model.pic)" class="form-control" />
+                                                @Html.ValidationMessageFor(model => model.pic, "", new { @class = "text-danger" })
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="ذخیره" class="btn btn-success" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

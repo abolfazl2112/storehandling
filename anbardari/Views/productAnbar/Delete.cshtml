@@ -1,0 +1,81 @@
+﻿@model anbardari.tbl_productAnbar
+
+@{
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <h4>tbl_productAnbar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anbarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anbarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maxOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maxOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ghafase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ghafase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

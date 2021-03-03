@@ -1,0 +1,239 @@
+﻿@model anbardari.tbl_order
+
+@{
+    var db = new Database();
+
+    int userid = 0;
+    try
+    {
+        userid = int.Parse(Session["userid"].ToString());
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+    var currentUser = db.tbl_users.Where(x => x.Id == userid).FirstOrDefault();
+    var anbar = db.tbl_anbar.Where(x => x.Id == currentUser.anbarId).FirstOrDefault();
+
+    int order = 1;
+    if (db.tbl_order.ToList().Count > 0)
+    {
+        order = (int)db.tbl_order.OrderByDescending(x => x.orderId).FirstOrDefault().Id;
+    }
+
+    var orderid = db.tbl_order.ToList().Count > 0 ? order + 1 : 1;
+    ViewBag.Title = "سفارش شماره  : " + orderid;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+    var anbars = db.tbl_anbar.Where(x => x.active == true).ToList();
+    string valuePersianDate = "";
+    string valuePersianTime = "";
+    if (Model == null)
+    {
+        valuePersianDate = anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd");
+        valuePersianTime = anbardari.Models.Tools.persianDateClass.getPersianDateTime("hh:ii");
+    }
+
+}
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="@Html.NameFor(x => x.orderId)" value="@orderid" />
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            @{
+                                try
+                                {
+                                    if (string.IsNullOrEmpty(Session["alert"].ToString()))
+                                    {
+                                        var alert = Session["alert"].ToString();
+                                        var message = Session["message"].ToString();
+                                        Session.Remove("alert");
+                                        Session.Remove("message");
+                                        <label class="alert alert-@alert">@message</label>
+
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+
+                            }
+                            <div class="box-title pull-left">
+                                <button type="submit" class="btn btn-app"><i class="fa fa-plus"></i>ثبت درخواست</button>
+                            </div>
+                            <div class="box-title pull-right">
+                                <label></label>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <hr style="margin:0px" />
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group" style="display:none">
+                                            @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                <input name="@Html.NameFor(model => model.date)"
+                                                       id="@Html.NameFor(model => model.date)"
+                                                       class="form-control"
+                                                       value="@(Model==null?valuePersianDate:(Model.date.ToString()==""?valuePersianDate:Model.date.ToString()))"
+                                                       data-MdDateTimePicker="true"
+                                                       data-targetselector="#startDate"
+                                                       data-groupid="group1"
+                                                       data-fromdate="true"
+                                                       data-enabletimepicker="false"
+                                                       data-placement="bottom"
+                                                       placeholder="yyyy/mm/dd" />
+                                            </div>
+                                            @Html.LabelFor(model => model.time, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                <input value="@valuePersianTime" id="@Html.NameFor(model => model.time)" name="@Html.NameFor(model => model.time)" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display:none">
+                                            <div>
+                                                @Html.LabelFor(model => model.anbar1, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    <select id="@Html.NameFor(model => model.anbar1)" name="@Html.NameFor(model => model.anbar1)" class="form-control select2">
+                                                        @{ 
+                                                            var flage = 0;
+                                                        }
+                                                        @foreach (var item in anbars)
+                                                        {
+                                                            flage++;
+                                                            <option @(flage>1?"":"selected") value="@item.Id">@item.subject</option>
+                                                        }
+                                                    </select>
+                                                    @Html.ValidationMessageFor(model => model.anbar1, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            @Html.LabelFor(model => model.anbar2, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                <select @(currentUser.admin ? "" : "disabled") id="@Html.NameFor(model => model.anbar2)" name="@Html.NameFor(model => model.anbar2)" class="form-control select2">
+                                                    @foreach (var item in anbars)
+                                                    {
+                                                        <option @(item.Id == anbar.Id ? "selected" : "") value="@item.Id">@item.subject</option>
+                                                    }
+                                                </select>
+                                                @Html.ValidationMessageFor(model => model.anbar2, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group">
+                                                @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group" style="display:none">
+                                            @Html.LabelFor(model => model.state, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                <select id="@Html.NameFor(model => model.state)" name="@Html.NameFor(model => model.state)" class="form-control select2">
+                                                    <option value="0"></option>
+                                                    @foreach (var item in db.tbl_state.Where(x => x.active == true))
+                                                    {
+                                                        <option value="@item.Id">@item.subject</option>
+                                                    }
+                                                </select>
+                                                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="productsTable" style="margin-bottom:20px" class="table table-bordered table-striped">
+                                <thead style="background-color: #c7c7c7;">
+                                    <tr>
+                                        <th style="width:10%">
+                                            کد کالا
+                                        </th>
+                                        <th style="width:70%">
+                                            کالا/لوازم
+                                        </th>
+                                        <th>
+                                            تعداد درخواستی
+                                        </th>
+                                        <th>
+                                            تعداد تایید شده
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.price)
+                                            </th>
+                                            <th>
+                                                توضیحات
+                                            </th>
+                                            <th>
+                                                وضعیت
+                                            </th>*@
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="padding: 0;"></td><td style="padding: 0;"></td><td style="padding: 0;"></td><td style="padding: 0;"></td><td style="padding:0"></td></tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-success">
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" name="productId" id="productId" onchange="inputChange()" value="" placeholder="کد کالا" />
+                    </div>
+                    <div class="col-md-7">
+                        <select class="form-control select2" name="productList" id="productList" onchange="selectedChange()">
+                            <option value="">نام کالا</option>
+                            @foreach (var item in db.tbl_product.Where(x => x.active == true).ToList())
+                            {
+                                <option value="@item.Id">@item.name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" placeholder="تعداد" class="form-control" name="numberProduct" id="numberProduct" value="" />
+                    </div>
+                    <div class="col-md-1">
+                        <a style="cursor:pointer" id="addProduct" name="addProduct" onclick="addTableRow()">
+                            <i class="fa fa-plus fa-2x" data-toggle="tooltip" data-placement="top" data-original-title="اضافه به لیست کالا"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

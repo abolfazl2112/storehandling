@@ -1,0 +1,216 @@
+﻿@model anbardari.tbl_checklist
+
+@{
+    var row = 0;
+
+    ViewBag.Title = "جدید";
+    Layout = "~/Views/Shared/_LayoutArzyabi.cshtml";
+
+    int currentYear = 0;
+    int currentMonth = 0;
+    int currentBakhshId = 0;
+    int currentSematId =0;
+
+    Database db = new Database();
+    tbl_users currentUser;
+    List<tbl_semat> personTypeList;
+    List<tbl_anbar> bakhshList;
+    List<tbl_question> questions;
+    List<tbl_personel> personList;
+    try
+    {
+        currentUser = (tbl_users)ViewBag.currentUser;
+        currentYear = (int)ViewBag.currentYear;
+        currentMonth = (int)ViewBag.currentMonth;
+        currentBakhshId = (int)ViewBag.currentBakhshId;
+        currentSematId = (int)ViewBag.currentSematId;
+
+        personTypeList = (List<tbl_semat>)ViewBag.personTypeList;
+        bakhshList = (List<tbl_anbar>)ViewBag.bakhshList;
+        questions = (List<tbl_question>)ViewBag.questions;
+        personList = (List<tbl_personel>)ViewBag.personList;
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+}
+
+<div class="row">
+    <section class="col-lg-12 col-md-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-search"></i>
+                <h3 class="box-title">جستجو</h3>
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn bg-info btn-sm" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <div class="box-body" >
+                <form action="" method="get" class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.year, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <select id="year" name="y" class="form-control select2">
+                                        @for (int i = 1395; i <= currentYear; i++)
+                                        {
+                                            <option @(i == currentYear ? "selected" : "") value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+                                @Html.LabelFor(model => model.month, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <select id="month" name="m" class="form-control select2">
+                                        @for (int i = 1; i <= 12; i++)
+                                        {
+                                            <option @(i == currentMonth ? "selected" : "") value="@i">@anbardari.Models.Tools.tools.toShamsiMonthName(i)</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @if (currentUser.admin)
+                                {
+                                    @Html.LabelFor(model => model.bakhshId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        <select id="anbar" name="a" class="form-control select2">
+                                            @foreach (var item in bakhshList)
+                                            {
+                                                <option @(item.Id==currentBakhshId?"selected":"") value="@item.Id">@item.subject</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                @Html.LabelFor(model => model.sematId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <select id="personId" name="p" class="form-control select2">
+                                        @foreach (var item in personTypeList)
+                                        {
+                                            <option @(item.Id==currentSematId?"selected":"") value="@item.Id">@item.subject</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input class="btn btn-block btn-primary" value="نمایش" type="submit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <input type="hidden" name="sematId" value="@(string.IsNullOrEmpty(Request.QueryString["p"])?"0":Request.QueryString["p"])" />
+    <input type="hidden" name="bakhshId" value="@(string.IsNullOrEmpty(Request.QueryString["a"])?"0":Request.QueryString["a"])" />
+    <input type="hidden" name="year" value="@(string.IsNullOrEmpty(Request.QueryString["y"])?"0":Request.QueryString["y"])" />
+    <input type="hidden" name="month" value="@(string.IsNullOrEmpty(Request.QueryString["m"])?"0":Request.QueryString["m"])" />
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h5 class="box-title pull-left">
+                        <button type="submit" class="btn btn-app">
+                            <i class="fa fa-save"></i>
+                            ذخیره
+                        </button>
+                    </h5>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body"  style="overflow:auto;height:500px">
+                    <table id="dataTable1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:1%">
+                                    ردیف
+                                </th>
+                                <th style="min-width:500px">
+                                    عنوان
+                                </th>
+                                @foreach (var item in personList)
+                                {
+                                    <th>
+                                        @item.name @item.family
+                                        <input type="hidden" name="inputPerson" value="@item.id" />
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in questions)
+                            {
+                                row++;
+                                <tr>
+                                    <td>
+                                        @row
+                                    </td>
+                                    <td>
+                                        @item.question
+                                        <input type="hidden" name="inputQuestion" value="@item.id" />
+                                    </td>
+                                    @foreach (var person in personList)
+                                    {
+                                        <td>
+                                            <input style="width: 50px;padding: 5px 5px;" name="inputRate" class="form-control  input_@person.id" type="number" max="10" min="1" value="5"/>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">
+                                    جمع امتیازات
+                                </th>
+                                @foreach (var item in personList)
+                                {
+                                    <th style="text-align:center">
+                                        <span class="sum_@item.id">0</span>
+                                    </th>
+                                }
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-header">
+                    <h5 class="box-title pull-left">
+                        <button type="submit" class="btn btn-app">
+                            <i class="fa fa-save"></i>
+                            ذخیره
+                        </button>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>*@
+
+
+
+
+
+
+

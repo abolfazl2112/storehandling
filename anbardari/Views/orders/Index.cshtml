@@ -1,0 +1,246 @@
+﻿@model IEnumerable<anbardari.tbl_order>
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "درخواست انبار";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Location = "orders";
+
+    //int userid = 0;
+    //try
+    //{
+    //    userid = int.Parse(Session["userid"].ToString());
+    //}
+    //catch (Exception ex)
+    //{
+    //    Response.Redirect("~/Home/");
+    //    return;
+    //}
+    //var currentUser = db.tbl_users.Where(x => x.Id == userid).FirstOrDefault();
+    tbl_users currentUser;
+    tbl_anbar currentAnbar;
+    try
+    {
+        currentUser = (tbl_users)ViewBag.currentUser;
+        currentAnbar = (tbl_anbar)ViewBag.currentAnbar;
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+}
+<div class="row">
+    <section class="col-lg-12 col-md-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-search"></i>
+                <h3 class="box-title">جستجوی درخواست</h3>
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn bg-info btn-sm" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <div class="box-body">
+                <form action="" method="get" class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="date1" class="control-label col-md-2">از تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date1"
+                                           id="date1"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date1"
+                                           data-groupid="group1"
+                                           data-fromdate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                                <label for="date2" class="control-label col-md-2">تا تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date2"
+                                           id="date2"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date2"
+                                           data-groupid="group1"
+                                           data-todate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                            </div>
+                            @if (currentUser.admin || currentUser.anbardar)
+                            {
+                                <div class="form-group">
+                                    <label for="bakhsh" class="control-label col-md-2">بخش</label>
+                                    <div class="col-md-4">
+                                        <select id="bakhsh" name="b" class="form-control select2">
+                                            <option value="0">همه بخش ها</option>
+                                            @foreach (var item in db.tbl_anbar.Where(x => x.active == true).ToList())
+                                            {
+                                                <option value="@item.Id">@item.subject</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    @*<label for="anbar" class="control-label col-md-2">کالا</label>
+                                    <div class="col-md-4">
+                                        <select id="anbar" name="k" class="form-control select2">
+                                            <option value="0">همه کالاها</option>
+                                            @foreach (var item in db.tbl_product.Where(x => x.active == true).ToList())
+                                            {
+                                                <option value="@item.Id">@item.name</option>
+                                            }
+                                        </select>
+                                    </div>*@
+                                </div>
+                            }
+                            
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input class="btn btn-block btn-primary" value="جستجو" type="submit"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a href="~/@ViewBag.Location/Create/" class="btn btn-primary">
+                        <i data-toggle="tooltip" data-placement="top" data-original-title="جدید" class="fa fa-plus"></i> @ViewBag.Title جدید
+                    </a>
+                </h5>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:110px">
+                                @Html.DisplayNameFor(model => model.orderId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.time)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.anbar1)
+                                </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbar2)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.price)
+                                </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.state)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @anbardari.Models.Tools.persianDateClass.strToDate(item.date.ToString())-@anbardari.Models.Tools.persianDateClass.strToTime(item.time.ToString())
+                                </td>
+                                @*<td>
+                                        @try
+                                        {
+                                            var sub = db.tbl_anbar.Where(x => x.Id == item.anbar1).FirstOrDefault().subject;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    </td>*@
+                                <td>
+                                    @if (item.anbar2 != null && item.anbar2 > 0)
+                                    {
+                                        <div>@db.tbl_anbar.Where(x => x.Id == item.anbar2).FirstOrDefault().subject</div>
+                                    }
+                                    else
+                                    {
+                                        <div>نامشخص</div>
+                                    }
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.price)
+                                    </td>*@
+                                <td>
+                                    @(item.state == 0 ? "در انتظار تایید" : db.tbl_state.Where(x => x.Id == item.state).FirstOrDefault().subject)
+                                </td>
+                                <td>
+                                    @if ((item.state <= 1 && currentUser.anbarId == item.anbar2)|| currentUser.admin || (!currentUser.admin && currentUser.anbardar && item.state==2))
+                                    {
+                                        <a href="~/@ViewBag.Location/edit/@item.Id"><i data-toggle="tooltip" data-placement="top" data-original-title="ویرایش" class="fa fa-2x fa-edit"></i></a>
+                                    }
+                                    | <a href="#" onclick="reloadIfram('modal-load-page',location.origin+'/@ViewBag.Location/details/@item.Id')" data-toggle="modal" data-target="#modal-load-page"><i data-toggle="tooltip" data-placement="top" data-original-title="جزییات" class="fa fa-2x fa-eye"></i></a>
+                                    | <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/printOption?id=@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="چاپ" class="fa fa-2x fa-print"></i></a>
+                                   @* | <a target="_blank" href="~/orders/print?o=@item.Id"><i data-toggle="tooltip" data-placement="top" data-original-title="چاپ" class="fa fa-2x fa-print"></i></a> |*@
+                                    @if ((item.state <= 1 && currentUser.anbarId == item.anbar2) || currentUser.admin)
+                                    {
+                                        <a href="#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/delete/@item.Id')" data-toggle="modal" data-target="#modal-delete-page">
+                                            <i data-toggle="tooltip" data-placement="top" data-original-title="حذف" class="fa fa-2x fa-remove"></i>
+                                        </a>
+                                        @*<a href="~/@ViewBag.Location/delete/@item.Id">
+                                                <i
+                                                   data-toggle="tooltip"
+                                                   data-placement="top"
+                                                   data-original-title="حذف"
+                                                   class="fa fa-2x fa-remove">
+                                                </i>
+                                            </a>*@
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.orderId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.time)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.anbar1)
+                                </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.anbar2)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.price)
+                                </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.state)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

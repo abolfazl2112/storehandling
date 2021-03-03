@@ -1,0 +1,140 @@
+﻿@model IEnumerable<anbardari.tbl_product>
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "کالا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Location = "product";
+    var currentUser = (tbl_users)ViewBag.currentUser;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a class="btn btn-success" href="/@ViewBag.Location/import">
+                       ورود کالا
+                    </a>
+                    <a href="#" class="btn btn-primary"
+                       onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/Create/')"
+                       data-toggle="modal" data-target="#modal-delete-page">
+                        <i data-toggle="tooltip" data-placement="top" data-original-title="جدید" class="fa fa-plus"></i> @ViewBag.Title جدید
+                    </a>
+                </h5>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.codeKala)
+                            </th>
+                            <th style="width:50%">
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.date1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.date2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.barcode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.minOrder)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.maxOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.active)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.codeKala)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                @*<td>
+                                    @item.date1.ToString()
+                                </td>
+                                <td>
+                                    @item.date2.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.barcode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.minOrder)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.maxOrder)
+                                </td>
+                                <td>
+                                    @if (item.active)
+                                    {
+                                        <i class="fa fa-check-square-o"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-minus-circle"></i>
+                                    }
+                                </td>
+                                <td>
+                                    @if (currentUser.admin)
+                                    {
+                                        <a href="~/productStore/?p=@item.Id" target="_blank"><i data-toggle="tooltip" data-placement="top" data-original-title="محدودیت کالا" class="fa fa-cog"></i></a>
+                                        <a href = "#" onclick = "reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/edit/@item.Id')" data-toggle = "modal" data-target = "#modal-delete-page" ><i data-toggle="tooltip" data-placement="top" data-original-title="ویرایش" class="fa fa-edit"></i></a>
+                                        <a href = "#" onclick="reloadIfram('modal-delete-page',location.origin+'/@ViewBag.Location/delete/@item.Id')" data-toggle="modal" data-target="#modal-delete-page"><i data-toggle="tooltip" data-placement="top" data-original-title="حذف" class="fa fa-remove"></i></a>
+	                                }
+                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.codeKala)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.date1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.date2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.barcode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.minOrder)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.maxOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.active)
+                            </th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

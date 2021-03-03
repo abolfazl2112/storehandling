@@ -1,0 +1,175 @@
+﻿@model anbardari.tbl_order
+
+@{
+    ViewBag.Title = "جزییات";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+
+    var db = new Database();
+    var orderClass = new anbardari.Models.Repository.orderClass();
+    var productClass = new anbardari.Models.Repository.productClass();
+    var anbarClass = new anbardari.Models.Repository.anbarClass();
+
+    var orderid = Model.Id;
+    ViewBag.Title = "سفارش شماره  : " + orderid;
+    var currentUser = (tbl_users)ViewBag.currentUser;
+    var products = db.tbl_orderProduct.Where(x => x.orderId == orderid);
+
+    var anbar1 = Model.anbar1 != null && Model.anbar1 > 0 ? anbarClass.getAnbar((int)Model.anbar1) : null;
+    var anbar2 = Model.anbar2 != null && Model.anbar2 > 0 ? anbarClass.getAnbar((int)Model.anbar2) : null;
+    var anbars = anbarClass.getAnbars();
+    var rowId = 0;
+    var productListInOrder = orderClass.getOrderProduct(orderid);
+}
+<h4>@ViewBag.Title</h4>
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.time, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @anbardari.Models.Tools.persianDateClass.strToDate(Model.date.ToString())-@anbardari.Models.Tools.persianDateClass.strToTime(Model.time.ToString())
+        </div>
+        @Html.LabelFor(model => model.state, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @try
+            {
+                @db.tbl_state.Where(x => x.Id == Model.state).FirstOrDefault().subject
+            }
+            catch (Exception ex)
+            {
+                <div>در انتظار تایید</div>
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.anbar1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @db.tbl_anbar.Where(x => x.Id == Model.anbar1).FirstOrDefault().subject
+        </div>
+        @Html.LabelFor(model => model.anbar2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @db.tbl_anbar.Where(x => x.Id == Model.anbar2).FirstOrDefault().subject
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left"></h5>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                کد کالا
+                            </th>
+                            <th>
+                                کالا/لوازم
+                            </th>
+                            <th>
+                                مصرفی
+                            </th>
+                            <th>
+                                حداکثر مجاز
+                            </th>
+                            <th>
+                                تعداد درخواستی
+                            </th>
+                            <th>
+                                تعداد تایید شده
+                            </th>
+                            <th>
+                                وضعیت
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in products)
+                        {
+                            var pro = productClass.getProduct((int)item.productId);
+                            var pMax = (int)pro.maxOrder;
+                            var pClass = productClass.getProductAnbar(pro.Id, (int)currentUser.anbarId);
+                            int pDore = 0;
+                            if (pClass != null)
+                            {
+                                pMax = (int)(pClass.maxOrder > pMax ? pClass.maxOrder : pMax);
+                                var y = pClass.lastYearOrder.ToString();
+                                var m = (pClass.lastMonthOrder < 10 ? "0" + pClass.lastMonthOrder.ToString() : pClass.lastMonthOrder.ToString());
+                                var lastOrderDate = int.Parse(y + m + "01");
+                                try
+                                {
+                                    pDore = productClass.getPDore(anbar2.Id, (int)item.productId, lastOrderDate);
+                                }
+                                catch (Exception ex)
+                                {
+                                    pDore = 0;
+                                }
+                            }
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.productId)
+                                </td>
+                                <td>
+                                    @db.tbl_product.Where(x=>x.Id == item.productId).FirstOrDefault().name
+                                </td>
+                                <td>
+                                    @pDore
+                                </td>
+                                <td>
+                                    @pMax
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.numberDarkhasti)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.number)
+                                </td>
+                                <td>
+                                    @if (item.state)
+                                    {
+                                        <i class='fa fa-check'></i>
+                                    }
+                                    else
+                                    {
+                                        <i class='fa fa-remove'></i>
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                کد کالا
+                            </th>
+                            <th>
+                                کالا/لوازم
+                            </th>
+                            <th>
+                                مصرفی
+                            </th>
+                            <th>
+                                حداکثر مجاز
+                            </th>
+                            <th>
+                                تعداد درخواستی
+                            </th>
+                            <th>
+                                تعداد تایید شده
+                            </th>
+                            <th>
+                                وضعیت
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

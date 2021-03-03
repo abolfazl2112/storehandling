@@ -1,0 +1,59 @@
+﻿@model anbardari.tbl_checklist
+
+@{
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+
+    Database db = new Database();
+    var currentYear = (int)ViewBag.currentYear;
+    var currentMonth = (int)ViewBag.currentMonth;
+    var currentBakhshId = (int)ViewBag.currentBakhshId;
+    var currentSematId = (int)ViewBag.currentSematId;
+
+}
+
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.year)
+        </dt>
+
+        <dd>
+            @currentYear
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.month)
+        </dt>
+
+        <dd>
+            @currentMonth
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sematId)
+        </dt>
+
+        <dd>
+            @db.tbl_semat.Where(x=>x.Id==currentSematId).FirstOrDefault().subject
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bakhshId)
+        </dt>
+
+        <dd>
+            @db.tbl_anbar.Where(x => x.Id == currentBakhshId).FirstOrDefault().subject
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" />
+        </div>
+    }
+</div>

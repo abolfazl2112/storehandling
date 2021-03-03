@@ -1,0 +1,37 @@
+﻿@model anbardari.tbl_state
+
+@{
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<h4>آیا برای حذف مطمئن هستید؟</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> 
+        </div>
+    }
+</div>

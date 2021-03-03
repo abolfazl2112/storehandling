@@ -1,0 +1,88 @@
+﻿@model List<tbl_checklist>
+@{
+    ViewBag.Title = "جزییات";
+    Layout = "~/Views/Shared/_LayoutArzyabi.cshtml";
+
+    int currentYear = 0;
+    int currentMonth = 0;
+    int currentBakhshId = 0;
+    int currentSematId = 0;
+
+    Database db = new Database();
+    tbl_users currentUser;
+    List<tbl_semat> personTypeList;
+    List<tbl_anbar> bakhshList;
+    List<tbl_question> questions;
+    List<tbl_personel> personList;
+    try
+    {
+        currentUser = (tbl_users)ViewBag.currentUser;
+        currentYear = (int)ViewBag.currentYear;
+        currentMonth = (int)ViewBag.currentMonth;
+        currentBakhshId = (int)ViewBag.currentBakhshId;
+        currentSematId = (int)ViewBag.currentSematId;
+
+        personTypeList = (List<tbl_semat>)ViewBag.personTypeList;
+        bakhshList = (List<tbl_anbar>)ViewBag.bakhshList;
+        questions = (List<tbl_question>)ViewBag.questions;
+        personList = (List<tbl_personel>)ViewBag.personList;
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_checklist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.personId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.personId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.questionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.questionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.month)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,113 @@
+﻿@{ 
+    var userid = int.Parse(Session["userid"].ToString());
+    
+    var db = new Database();
+    var currentUser = db.tbl_users.Where(x => x.Id == userid).FirstOrDefault();
+    var anbar = db.tbl_anbar.Where(x => x.Id == currentUser.anbarId).FirstOrDefault();
+}
+
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-right image">
+                <img src="~/Images/profiles/noPic.png" class="img-circle" alt="@currentUser.name @currentUser.family">
+            </div>
+            <a href="~/Home/profile/@currentUser.Id" class="pull-right info">
+                <p>@currentUser.name @currentUser.family</p>
+                <div><i class="fa fa-circle text-success"></i> @anbar.subject</div>
+            </a>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="جستجو">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li>
+                <a href="~/dashbord">
+                    <i class="fa fa-dashboard"></i> <span>داشبورد</span>
+                </a>
+            </li>
+            <li>
+                <a href="~/orders/create">
+                    <i class="fa fa-file-text"></i> <span>درخواست جدید</span>
+                </a>
+            </li>
+            <li>
+                <a href="~/orders">
+                    <i class="fa fa-list"></i> <span>لیست درخواست ها</span>
+                    <span class="pull-left-container">
+                    <small class="label pull-left bg-red" style="-moz-border-radius: 50px; -webkit-border-radius: 50px; border-radius: 50px;">.</small>
+                </span>
+                </a>
+            </li>
+            <li class="treeview" style="display:none">
+                <a href="#">
+                    <i class="fa fa-edit"></i> <span>گزارشات</span>
+                    <span class="pull-left-container">
+                        <i class="fa fa-angle-left pull-left"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="~/report/product"><i class="fa fa-circle-o"></i>گزارش کالا</a></li>
+                    @*<li><a href="~/report/bakhsh"><i class="fa fa-circle-o"></i>گزارش بخش</a></li>*@
+                    <li><hr /></li>
+                </ul>
+            </li>
+            @if (currentUser.admin || currentUser.anbardar)
+            {
+                <li>
+                    <a href="~/product">
+                        <i class="fa fa-files-o"></i> <span>کالا/لوازم</span>
+                    </a>
+                </li>
+            }
+            
+            @if (currentUser.admin == true)
+            {
+                <li>
+                    <a href="~/anbar">
+                        <i class="fa fa-building"></i> <span>انبار/بخش</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="~/users">
+                        <i class="fa fa-users"></i> <span>کاربران</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i> <span>اطلاعات پایه</span>
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-left pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="~/semat"><i class="fa fa-circle-o"></i>سمت</a></li>
+                        <li><a href="~/state"><i class="fa fa-circle-o"></i>وضعیت</a></li>
+                        <li><hr /></li>
+                    </ul>
+                </li>
+            }
+
+            @*<li><a href="#"><i class="fa fa-book"></i> <span>راهنمای سایت</span></a></li>*@
+            <li class="header">سامانه ها</li>
+            <li><a href="~/dashbord/dashbord"><i class="fa fa-circle-o text-yellow"></i> <span>سیستم ارزیابی پرسنل</span></a></li>
+                <li><a href="~/dashbord"><i class="fa fa-circle-o text-red"></i> <span>سیستم درخواست انبار</span></a></li>
+    @*<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>اطلاعات</span></a></li>*@
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

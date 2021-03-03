@@ -1,0 +1,68 @@
+﻿@model anbardari.tbl_product
+
+@{
+    ViewBag.Title = "کالای جدید";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+    Database db = new Database();
+
+    var codeKala = 1;
+    try
+    {
+        codeKala = int.Parse(db.tbl_product.OrderByDescending(x => x.codeKala).First().codeKala) + 1;
+
+    }
+    catch (Exception ex)
+    {
+        codeKala = 1;
+    }
+}
+<h4>@ViewBag.Title</h4>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.codeKala, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" id="@Html.NameFor(model=>model.codeKala)" name="@Html.NameFor(model=>model.codeKala)" value="@codeKala"  class="form-control"/>
+                @Html.ValidationMessageFor(model => model.codeKala, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.maxOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.maxOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.maxOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.active)
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

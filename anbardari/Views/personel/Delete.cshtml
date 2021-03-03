@@ -1,0 +1,77 @@
+﻿@model anbardari.tbl_personel
+
+@{
+    ViewBag.Title = "حذف پرسنل";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.family)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.family)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.father)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.father)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.meli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.meli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sematId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sematId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-success" />
+        </div>
+    }
+</div>

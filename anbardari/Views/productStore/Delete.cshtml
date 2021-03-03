@@ -1,0 +1,40 @@
+﻿@model anbardari.tbl_productAnbar
+
+@{
+    ViewBag.Title = "حذف";
+    Database db = new Database();
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<h4>@ViewBag.Title</h4>
+
+<h3>آیا برای حذف مطمن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productId)
+        </dt>
+
+        <dd>
+            @db.tbl_product.Where(x => x.Id == Model.productId).FirstOrDefault().name
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anbarId)
+        </dt>
+
+        <dd>
+            @db.tbl_anbar.Where(x => x.Id == Model.anbarId).FirstOrDefault().subject
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> 
+        </div>
+    }
+</div>

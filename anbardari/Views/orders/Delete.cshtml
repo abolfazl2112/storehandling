@@ -1,0 +1,54 @@
+﻿@model anbardari.tbl_order
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)-
+            @Html.DisplayFor(model => model.time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anbar1)
+        </dt>
+
+        <dd>
+            @db.tbl_anbar.Where(x=>x.Id==Model.anbar1).FirstOrDefault().subject
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anbar2)
+        </dt>
+
+        <dd>
+            @db.tbl_anbar.Where(x => x.Id == Model.anbar2).FirstOrDefault().subject
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" />
+        </div>
+    }
+</div>

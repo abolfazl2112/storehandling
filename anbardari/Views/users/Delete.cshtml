@@ -1,0 +1,78 @@
+﻿@model anbardari.tbl_users
+
+@{
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.anbarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anbarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sematId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sematId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.admin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.family)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.family)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-default" />
+        </div>
+    }
+</div>

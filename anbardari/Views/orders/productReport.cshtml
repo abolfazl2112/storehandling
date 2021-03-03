@@ -1,0 +1,197 @@
+﻿@{
+    Database db = new Database();
+    ViewBag.Title = "مصرفی کالای بخش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    tbl_users currentUser;
+    try
+    {
+        currentUser = (tbl_users)ViewBag.currentUser;
+    }
+    catch (Exception ex)
+    {
+        Response.Redirect("~/Home/");
+        return;
+    }
+    var currentModel = (List<anbardari.Models.Repository.tbl.tbl_order_products>)ViewBag.currentModel;
+}
+
+<div class="row">
+    <section class="col-lg-12 col-md-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-search"></i>
+                <h3 class="box-title">جستجو</h3>
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn bg-info btn-sm" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <div class="box-body">
+                <form action="" method="get" class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="date1" class="control-label col-md-2">از تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date1"
+                                           id="date1"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date1"
+                                           data-groupid="group1"
+                                           data-fromdate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                                <label for="date2" class="control-label col-md-2">تا تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date2"
+                                           id="date2"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date2"
+                                           data-groupid="group1"
+                                           data-todate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @if (currentUser.admin || currentUser.anbardar)
+                                {
+                                    <label for="bakhsh" class="control-label col-md-2">بخش</label>
+                                    <div class="col-md-4">
+                                        <select id="bakhsh" name="a" class="form-control select2">
+                                            <option value="0">همه بخش ها</option>
+                                            @foreach (var item in db.tbl_anbar.Where(x => x.active == true).ToList())
+                                            {
+                                            <option value="@item.Id">@item.subject</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                }
+                                <label for="anbar" class="control-label col-md-2">کالا</label>
+                                <div class="col-md-4">
+                                    <select id="product" name="p" class="form-control select2">
+                                        <option value="0">همه کالاها</option>
+                                        @foreach (var item in db.tbl_product.Where(x => x.active == true).ToList())
+                                            {
+                                            <option value="@item.Id">@item.name</option>
+                                            }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input class="btn btn-block btn-primary" value="جستجو" type="submit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h5 class="box-title pull-left">
+                    <a href="~/orders/print"><i data-toggle="tooltip" data-placement="top" data-original-title="چاپ" class="fa fa-2x fa-print"></i></a>
+                </h5>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:110px">
+                                شماره سفارش
+                            </th>
+                            <th>
+                                بخش
+                            </th>
+                            <th>
+                                کالا
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                تعداد درخواستی
+                            </th>
+                            <th>
+                                تعداد دریافتی
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in currentModel)
+                        {
+                            <tr>
+                                <td>
+                                    @item.orderId
+                                </td>
+                                <td>
+                                    @db.tbl_anbar.Where(x => x.Id == item.anbar2).FirstOrDefault().subject
+                                </td>
+                                <td>
+                                    @db.tbl_product.Where(a => a.Id == item.productId).FirstOrDefault().name
+                                </td>
+                                <td>
+                                    @anbardari.Models.Tools.persianDateClass.strToDate(item.date.ToString())
+                                </td>
+                                <td>
+                                    @item.numberDarkhasti
+                                </td>
+                                <td>
+                                    @item.number
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th style="width:110px">
+                                شماره سفارش
+                            </th>
+                            <th>
+                                بخش
+                            </th>
+                            <th>
+                                کالا
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                تعداد درخواستی
+                            </th>
+                            <th>
+                                تعداد دریافتی
+                            </th>
+
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>

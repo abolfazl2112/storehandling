@@ -1,0 +1,56 @@
+﻿@model anbardari.tbl_productAnbar
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "جدید";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<h4>@ViewBag.Title</h4>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.productId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.productId, new SelectList(db.tbl_product, "Id", "name"), htmlAttributes: new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.productId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.anbarId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.anbarId, new SelectList(db.tbl_anbar, "Id", "subject"), htmlAttributes: new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.anbarId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.maxOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.maxOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.maxOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.days, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.days, new SelectList(db.tbl_typeDays.Where(x=>x.active==true), "Id", "subject"), htmlAttributes: new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.days, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "تنظیمات چاپ";
+    var id = Request.QueryString["id"].ToString();
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<a href="~/orders/print?o=@id&size=5" target="_blank">چاپ بر روی برگه A5</a><br /><br />
+<a href="~/orders/print?o=@id&size=4" target="_blank">چاپ بر روی برگه A4</a>

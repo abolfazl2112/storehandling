@@ -1,0 +1,108 @@
+﻿
+@{
+    Database db = new Database();
+    ViewBag.Title = "گزارشات کالا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <section class="col-lg-12 col-md-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-search"></i>
+                <h3 class="box-title">جستجوی </h3>
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn bg-info btn-sm" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="pid" class="control-label col-md-2">از تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="pid"
+                                           id="pid"
+                                           class="form-control"
+                                           placeholder="کد کالا" />
+                                </div>
+                                <label for="pname" class="control-label col-md-2">کالا</label>
+                                <div class="col-md-4">
+                                    <select id="pname" name="pname" class="form-control select2">
+                                        <option value="0">همه کالاها</option>
+                                        @foreach (var item in db.tbl_product.Where(x => x.active == true).ToList())
+                                        {
+                                            <option value="@item.Id">@item.name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="date1" class="control-label col-md-2">از تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date1"
+                                           id="date1"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date1"
+                                           data-groupid="group1"
+                                           data-fromdate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                                <label for="date2" class="control-label col-md-2">تا تاریخ</label>
+                                <div class="col-md-4">
+                                    <input name="date2"
+                                           id="date2"
+                                           class="form-control"
+                                           value="@anbardari.Models.Tools.persianDateClass.getPersianDateTime("yyyy/mm/dd")"
+                                           data-MdDateTimePicker="true"
+                                           data-targetselector="#date2"
+                                           data-groupid="group1"
+                                           data-todate="true"
+                                           data-enabletimepicker="false"
+                                           data-placement="bottom"
+                                           placeholder="yyyy/mm/dd" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bakhsh" class="control-label col-md-2">بخش</label>
+                                <div class="col-md-4">
+                                    <select id="bakhsh" name="bakhsh" class="form-control select2">
+                                        <option value="0">همه موارد</option>
+                                        @foreach (var item in db.tbl_anbar.Where(x => x.active == true).ToList())
+                                        {
+                                            <option value="@item.Id">@item.subject</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label for="bakhsh" class="control-label col-md-2">وضعیت کالا</label>
+                                <div class="col-md-4">
+                                    <select id="bakhsh" name="bakhsh" class="form-control select2">
+                                        <option value="0">همه موارد</option>
+                                        @foreach (var item in db.tbl_state.Where(x => x.active == true).ToList())
+                                        {
+                                            <option value="@item.Id">@item.subject</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input name="submit" id="submit" class="btn btn-block btn-primary" value="جستجو" type="submit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

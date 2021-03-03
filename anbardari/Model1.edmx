@@ -1,0 +1,624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="anbarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_anbar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anbarId" Type="int" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_checklist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bakhshId" Type="int" />
+          <Property Name="sematId" Type="int" />
+          <Property Name="personId" Type="int" />
+          <Property Name="questionId" Type="int" />
+          <Property Name="rate" Type="int" />
+          <Property Name="year" Type="int" />
+          <Property Name="month" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderId" Type="int" />
+          <Property Name="date" Type="int" />
+          <Property Name="time" Type="int" />
+          <Property Name="anbar1" Type="int" />
+          <Property Name="anbar2" Type="int" />
+          <Property Name="price" Type="float" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="barcode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_orderProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="personId" Type="int" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="numberDarkhasti" Type="int" />
+          <Property Name="number" Type="int" />
+          <Property Name="barcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="float" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="state" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bakhshId" Type="int" />
+          <Property Name="sematId" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="family" Type="nvarchar" MaxLength="50" />
+          <Property Name="father" Type="nvarchar" MaxLength="50" />
+          <Property Name="meli" Type="nvarchar" MaxLength="12" />
+          <Property Name="bdate" Type="int" />
+          <Property Name="pic" Type="nvarchar" MaxLength="50" />
+          <Property Name="emza" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anbarId" Type="int" Nullable="false" />
+          <Property Name="category" Type="int" />
+          <Property Name="codeKala" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" />
+          <Property Name="date1" Type="nvarchar" MaxLength="10" />
+          <Property Name="date2" Type="nvarchar" MaxLength="10" />
+          <Property Name="serialNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="barcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="temperetureMin" Type="int" />
+          <Property Name="temperetureMax" Type="int" />
+          <Property Name="minOrder" Type="int" />
+          <Property Name="maxOrder" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_productAnbar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="anbarId" Type="int" Nullable="false" />
+          <Property Name="number" Type="int" />
+          <Property Name="minOrder" Type="int" />
+          <Property Name="maxOrder" Type="int" />
+          <Property Name="lastYearOrder" Type="int" />
+          <Property Name="lastMonthOrder" Type="int" />
+          <Property Name="days" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question" Type="nvarchar" MaxLength="200" />
+          <Property Name="maxRate" Type="int" />
+          <Property Name="personTypeId" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_rates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="rate" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_semat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_state">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_transferType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_typeDays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="days" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anbarId" Type="int" />
+          <Property Name="sematId" Type="int" />
+          <Property Name="admin" Type="bit" Nullable="false" />
+          <Property Name="anbardar" Type="bit" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="family" Type="nvarchar" MaxLength="50" />
+          <Property Name="father" Type="nvarchar" MaxLength="50" />
+          <Property Name="codemeli" Type="nvarchar" MaxLength="11" />
+          <Property Name="pic" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="anbarModelStoreContainer">
+          <EntitySet Name="tbl_anbar" EntityType="Self.tbl_anbar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_checklist" EntityType="Self.tbl_checklist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_order" EntityType="Self.tbl_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_orderProduct" EntityType="Self.tbl_orderProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_personel" EntityType="Self.tbl_personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_product" EntityType="Self.tbl_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_productAnbar" EntityType="Self.tbl_productAnbar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_question" EntityType="Self.tbl_question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_rates" EntityType="Self.tbl_rates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_semat" EntityType="Self.tbl_semat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_state" EntityType="Self.tbl_state" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_transferType" EntityType="Self.tbl_transferType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_typeDays" EntityType="Self.tbl_typeDays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_users" EntityType="Self.tbl_users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="anbarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Database" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_category" EntityType="anbarModel.tbl_category" />
+          <EntitySet Name="tbl_order" EntityType="anbarModel.tbl_order" />
+          <EntitySet Name="tbl_orderProduct" EntityType="anbarModel.tbl_orderProduct" />
+          <EntitySet Name="tbl_semat" EntityType="anbarModel.tbl_semat" />
+          <EntitySet Name="tbl_state" EntityType="anbarModel.tbl_state" />
+          <EntitySet Name="tbl_transferType" EntityType="anbarModel.tbl_transferType" />
+          <EntitySet Name="tbl_typeDays" EntityType="anbarModel.tbl_typeDays" />
+          <EntitySet Name="tbl_users" EntityType="anbarModel.tbl_users" />
+          <EntitySet Name="tbl_productAnbar" EntityType="anbarModel.tbl_productAnbar" />
+          <EntitySet Name="tbl_product" EntityType="anbarModel.tbl_product" />
+          <EntitySet Name="tbl_rates" EntityType="anbarModel.tbl_rates" />
+          <EntitySet Name="tbl_anbar" EntityType="anbarModel.tbl_anbar" />
+          <EntitySet Name="tbl_personel" EntityType="anbarModel.tbl_personel" />
+          <EntitySet Name="tbl_checklist" EntityType="anbarModel.tbl_checklist" />
+          <EntitySet Name="tbl_question" EntityType="anbarModel.tbl_question" />
+        </EntityContainer>
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anbarId" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderId" Type="Int32" />
+          <Property Name="date" Type="Int32" />
+          <Property Name="time" Type="Int32" />
+          <Property Name="anbar1" Type="Int32" />
+          <Property Name="anbar2" Type="Int32" />
+          <Property Name="price" Type="Double" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_orderProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="personId" Type="Int32" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="numberDarkhasti" Type="Int32" />
+          <Property Name="number" Type="Int32" />
+          <Property Name="price" Type="Double" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Boolean" Nullable="false" />
+          <Property Name="barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_semat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_state">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_transferType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_typeDays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="days" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anbarId" Type="Int32" />
+          <Property Name="sematId" Type="Int32" />
+          <Property Name="admin" Type="Boolean" Nullable="false" />
+          <Property Name="anbardar" Type="Boolean" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="father" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codemeli" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="pic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_productAnbar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="anbarId" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="Int32" />
+          <Property Name="minOrder" Type="Int32" />
+          <Property Name="maxOrder" Type="Int32" />
+          <Property Name="lastYearOrder" Type="Int32" />
+          <Property Name="lastMonthOrder" Type="Int32" />
+          <Property Name="days" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anbarId" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="Int32" />
+          <Property Name="codeKala" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="date1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="date2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="serialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="temperetureMin" Type="Int32" />
+          <Property Name="temperetureMax" Type="Int32" />
+          <Property Name="minOrder" Type="Int32" />
+          <Property Name="maxOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_rates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rate" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_anbar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bakhshId" Type="Int32" />
+          <Property Name="sematId" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="father" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meli" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="bdate" Type="Int32" />
+          <Property Name="pic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_checklist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bakhshId" Type="Int32" />
+          <Property Name="personId" Type="Int32" />
+          <Property Name="questionId" Type="Int32" />
+          <Property Name="rate" Type="Int32" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="month" Type="Int32" />
+          <Property Name="sematId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="maxRate" Type="Int32" />
+          <Property Name="personTypeId" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="anbarModelStoreContainer" CdmEntityContainer="Database">
+          <EntitySetMapping Name="tbl_category">
+            <EntityTypeMapping TypeName="anbarModel.tbl_category">
+              <MappingFragment StoreEntitySet="tbl_category">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="anbarId" ColumnName="anbarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_order">
+            <EntityTypeMapping TypeName="anbarModel.tbl_order">
+              <MappingFragment StoreEntitySet="tbl_order">
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="anbar2" ColumnName="anbar2" />
+                <ScalarProperty Name="anbar1" ColumnName="anbar1" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_orderProduct">
+            <EntityTypeMapping TypeName="anbarModel.tbl_orderProduct">
+              <MappingFragment StoreEntitySet="tbl_orderProduct">
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="numberDarkhasti" ColumnName="numberDarkhasti" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_semat">
+            <EntityTypeMapping TypeName="anbarModel.tbl_semat">
+              <MappingFragment StoreEntitySet="tbl_semat">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_state">
+            <EntityTypeMapping TypeName="anbarModel.tbl_state">
+              <MappingFragment StoreEntitySet="tbl_state">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_transferType">
+            <EntityTypeMapping TypeName="anbarModel.tbl_transferType">
+              <MappingFragment StoreEntitySet="tbl_transferType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_typeDays">
+            <EntityTypeMapping TypeName="anbarModel.tbl_typeDays">
+              <MappingFragment StoreEntitySet="tbl_typeDays">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="days" ColumnName="days" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_users">
+            <EntityTypeMapping TypeName="anbarModel.tbl_users">
+              <MappingFragment StoreEntitySet="tbl_users">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="pic" ColumnName="pic" />
+                <ScalarProperty Name="codemeli" ColumnName="codemeli" />
+                <ScalarProperty Name="father" ColumnName="father" />
+                <ScalarProperty Name="family" ColumnName="family" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="anbardar" ColumnName="anbardar" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+                <ScalarProperty Name="sematId" ColumnName="sematId" />
+                <ScalarProperty Name="anbarId" ColumnName="anbarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_productAnbar">
+            <EntityTypeMapping TypeName="anbarModel.tbl_productAnbar">
+              <MappingFragment StoreEntitySet="tbl_productAnbar">
+                <ScalarProperty Name="days" ColumnName="days" />
+                <ScalarProperty Name="lastMonthOrder" ColumnName="lastMonthOrder" />
+                <ScalarProperty Name="lastYearOrder" ColumnName="lastYearOrder" />
+                <ScalarProperty Name="maxOrder" ColumnName="maxOrder" />
+                <ScalarProperty Name="minOrder" ColumnName="minOrder" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="anbarId" ColumnName="anbarId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_product">
+            <EntityTypeMapping TypeName="anbarModel.tbl_product">
+              <MappingFragment StoreEntitySet="tbl_product">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="maxOrder" ColumnName="maxOrder" />
+                <ScalarProperty Name="minOrder" ColumnName="minOrder" />
+                <ScalarProperty Name="temperetureMax" ColumnName="temperetureMax" />
+                <ScalarProperty Name="temperetureMin" ColumnName="temperetureMin" />
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="serialNumber" ColumnName="serialNumber" />
+                <ScalarProperty Name="date2" ColumnName="date2" />
+                <ScalarProperty Name="date1" ColumnName="date1" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="codeKala" ColumnName="codeKala" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="anbarId" ColumnName="anbarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_rates">
+            <EntityTypeMapping TypeName="anbarModel.tbl_rates">
+              <MappingFragment StoreEntitySet="tbl_rates">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_anbar">
+            <EntityTypeMapping TypeName="anbarModel.tbl_anbar">
+              <MappingFragment StoreEntitySet="tbl_anbar">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_personel">
+            <EntityTypeMapping TypeName="anbarModel.tbl_personel">
+              <MappingFragment StoreEntitySet="tbl_personel">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="emza" ColumnName="emza" />
+                <ScalarProperty Name="pic" ColumnName="pic" />
+                <ScalarProperty Name="bdate" ColumnName="bdate" />
+                <ScalarProperty Name="meli" ColumnName="meli" />
+                <ScalarProperty Name="father" ColumnName="father" />
+                <ScalarProperty Name="family" ColumnName="family" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sematId" ColumnName="sematId" />
+                <ScalarProperty Name="bakhshId" ColumnName="bakhshId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_checklist">
+            <EntityTypeMapping TypeName="anbarModel.tbl_checklist">
+              <MappingFragment StoreEntitySet="tbl_checklist">
+                <ScalarProperty Name="sematId" ColumnName="sematId" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="bakhshId" ColumnName="bakhshId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_question">
+            <EntityTypeMapping TypeName="anbarModel.tbl_question">
+              <MappingFragment StoreEntitySet="tbl_question">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="personTypeId" ColumnName="personTypeId" />
+                <ScalarProperty Name="maxRate" ColumnName="maxRate" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

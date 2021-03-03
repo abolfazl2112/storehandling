@@ -1,0 +1,101 @@
+﻿@model anbardari.tbl_product
+
+@{
+    ViewBag.Title = "حذف";
+    Layout = "~/Views/Shared/_LayoutJustContent.cshtml";
+}
+
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codeKala)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codeKala)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.date1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperetureMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperetureMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperetureMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperetureMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minOrder)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maxOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maxOrder)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> 
+        </div>
+    }
+</div>

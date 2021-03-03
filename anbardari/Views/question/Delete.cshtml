@@ -1,0 +1,36 @@
+﻿@model anbardari.tbl_question
+
+@{
+    Database db = new Database();
+    ViewBag.Title = "حذف سوال";
+    Layout = "~/Views/Shared/_LayoutArzyabi.cshtml";
+}
+<h3>آیا برای حذف مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.personTypeId)
+        </dt>
+
+        <dd>
+            @db.tbl_semat.Where(x => x.Id == Model.personTypeId).FirstOrDefault()
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" />
+        </div>
+    }
+</div>

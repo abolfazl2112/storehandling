@@ -1,0 +1,42 @@
+﻿@using Stimulsoft.Report.Mvc;
+@{
+
+    ViewBag.Title = "چاپ";
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @Html.Stimulsoft().StiMvcViewer("report", new StiMvcViewerOptions()
+{
+    Localization = "~/Localization/fa.xml",
+    Appearance =
+            {
+                FullScreenMode = true
+            },
+    Toolbar =
+        {
+            FontFamily="b nazanin",
+            ShowAboutButton=false,
+            ShowDesignButton=false,
+            ShowBookmarksButton=false,
+            ShowFindButton=false,
+            ShowFullScreenButton=false,
+        },
+    Server =
+            {
+                RequestTimeout=60,
+            },
+    Actions =
+            {
+                GetReportSnapshot = "GetReport",
+                ViewerEvent = "ViewerEvent"
+            }
+})
+</body>
+</html>
+
